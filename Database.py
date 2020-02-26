@@ -46,8 +46,7 @@ class Database:
 
         sql_query = sql_query + ");"
 
-        print("Database: creating table\nQuery: "+ str(sql_query))
-        
+        print("Database: creating table\nQuery: "+ str(sql_query))        
         
         try:
             conn = self.__create_connection( self.dbName )
@@ -92,7 +91,6 @@ class Database:
             conn.close()
         except Exception as e:
             print(e)
-
 
         return 0
 
@@ -160,9 +158,3 @@ class Database:
 
         return result
 
-    
-
-    def __checkRecord(self, dictionary):
-        print("Database: check record before to add")
-        #check if keywords are correct
-        return True
