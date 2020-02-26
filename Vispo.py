@@ -3,6 +3,10 @@ import os
 import Database as db
 import Server as s
 
+INTEGER   = db.INTEGER
+REAL      = db.REAL
+TEXT      = db.TEXT
+TIMESTAMP = db.TIMESTAMP
 
 
 
@@ -10,18 +14,10 @@ import Server as s
 
 class Vispo():
 
-    # constants
-    class DataType:
-        INTEGER   = db.INTEGER 
-        REAL      = db.REAL
-        TEXT      = db.TEXT
-        TIMESTAMP = db.TIMESTAMP 
-
-
     # Attributes
-    dictTemplate = ''
-    database = None
-    server   = None
+    # dictTemplate = ''
+    # database = None
+    # server   = None
 
     def __init__(self, name, dictTemplate):
         self.name = name
@@ -58,24 +54,53 @@ class Vispo():
         ret = db.Database(name, dictionary)        
         return ret
 
-    def __checkTemplate(self, dictTemplate):
 
-        print("Vispo check template")
+    def __checkTemplate(self, dictionary):
+        print("Vispo: check template")
+
+        for key, value in dictionary.items():
+            if not (value in (INTEGER, REAL, TEXT, TIMESTAMP)):
+                return False
+            
         return True
+
+
+    def __checkRecord(self, dictionary):
+        print("Vispo: check record")
+
+        for key, value in dictionary.items():
+            if not ( key in self.dictTemplate.keys() ):
+                return False
+
+        return True
+
 
 
 
     def addRecord(self, record):
         print("Vispo: adding object to DB")
+        if self.__checkRecord( record ):
+            self.database.addRecord( record )
+        
         return 0
+
 
     def getLastRecord(self):
         print("Vispo: get last record")
-        return 0
+        res = self.database.getLastRecord()
+        return res
+
+
+    def getAllRecords(self):
+        print("Vispo: get last record")
+        res = self.database.getAllRecords()
+        return res
+
 
     def getRecords(self, start, end):
         print("Vispo: get Records from %s and %s", start, end)
-        return 0
+        res = self.database.getRecords(start, end)
+        return res
 
 
 
